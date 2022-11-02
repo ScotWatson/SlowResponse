@@ -23,8 +23,9 @@ function selfFetch(evt) {
 }
 
 function createResponse(request) {
-  console.log("Scope: " + self.registration.scope);
-  console.log("Request: " + request.url);
+  const myHost = self.clients[0];
+  myHost.postMessage("Scope: " + self.registration.scope);
+  myHost.postMessage("Request: " + request.url);
   if (request.url.startsWith(self.registration.scope + "/pseudo/")) {
     let i = 0;
     const underlyingSource = {
