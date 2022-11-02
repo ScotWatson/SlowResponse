@@ -22,8 +22,9 @@ function selfFetch(evt) {
   evt.respondWith(createResponse(evt.request));
 }
 
-function createResponse(request) {
-  const myHost = self.clients[0];
+async function createResponse(request) {
+  const allClients = await self.clients.matchAll();
+  const myHost = allClients[0];
   myHost.postMessage("Scope: " + self.registration.scope);
   myHost.postMessage("Request: " + request.url);
   if (request.url.startsWith(self.registration.scope + "/pseudo/")) {
