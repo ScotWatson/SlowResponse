@@ -22,21 +22,50 @@ const loadErrorLogModule = (async function () {
   }
 })();
 
+const startServiceWorker = (async function () {
+  if (!("serviceWorker" in navigator)) {
+    throw new Error("Service Workers are not supported");
+  }
+  return navigator.serviceWorker.register("sw.js");
+})();
+
 (async function () {
   try {
-    const modules = await Promise.all( [ loadWindow, loadErrorLogModule, loadMediaStreamModule ] );
+    const modules = await Promise.all( [ loadWindow, loadErrorLogModule, startServiceWorker ] );
     start(modules);
   } catch (e) {
     console.error(e);
   }
 })();
 
-async function start( [ evtWindow, ErrorLog ] ) {
+async function start( [ evtWindow, ErrorLog, myServiceWorkerRegistration ] ) {
   try {
+    const btnGetData = document.createElement("button");
+    btnGetData.innerHTML = "Get Data";
+    btnGetData.addEventListener("click", function () {
+      getData();
+    })
+    document.body.appendChild(btnGetData);
   } catch (e) {
     ErrorLog.rethrow({
       functionName: "start",
       error: e,
     });
+  }
+  async function getData() {
+    const testResponse = await fetch("https://scotwatson.github.io/SlowResponse/pseudo/");
+    const bodyReader = testResponse.body.getReader({
+      mode: "byob",
+    });
+    let view;
+    let result = {
+      done: false,
+    };
+    while (!(result.done)) {
+      view = new Uint8Array(4);
+      result = await bodyReader.read(view);
+      console.log(result.value);
+    }
+    console.log("Done.");
   }
 }
