@@ -15,6 +15,8 @@ function selfActivate(evt) {
     console.log("selfActivate");
     console.log(evt);
     self.registration.addEventListener("updatefound", registrationUpdateFound);
+    self.clients.claim();
+    self.skipWaiting()
   } catch (e) {
     console.error(e);
   }
@@ -84,8 +86,6 @@ function selfInstall(evt) {
   try {
     console.log("selfInstall");
     console.log(evt);
-    self.clients.claim();
-    self.skipWaiting()
     /*
     function addCaches(cache) {
       console.log("sw.js: Start Adding Caches");
