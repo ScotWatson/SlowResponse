@@ -17,6 +17,13 @@ function selfActivate(evt) {
     self.registration.addEventListener("updatefound", registrationUpdateFound);
     self.clients.claim();
     self.skipWaiting()
+    self.addEventListener("fetch", selfFetch);
+    self.addEventListener("notificationclick", selfNotificationClick);
+    self.addEventListener("notificationclose", selfNotificationClose);
+    self.addEventListener("periodicsync", selfPeriodicSync);
+    self.addEventListener("push", selfPush);
+    self.addEventListener("pushsubscriptionchange", selfPushSubscriptionChange);
+    self.addEventListener("sync", selfSync);
   } catch (e) {
     console.error(e);
   }
@@ -173,15 +180,8 @@ function selfSync(evt) {
 }
 
 self.addEventListener("activate", selfActivate);
-self.addEventListener("fetch", selfFetch);
 self.addEventListener("install", selfInstall);
 self.addEventListener("message", selfMessage);
-self.addEventListener("notificationclick", selfNotificationClick);
-self.addEventListener("notificationclose", selfNotificationClose);
-self.addEventListener("periodicsync", selfPeriodicSync);
-self.addEventListener("push", selfPush);
-self.addEventListener("pushsubscriptionchange", selfPushSubscriptionChange);
-self.addEventListener("sync", selfSync);
 
 function registrationUpdateFound() {
   try {
