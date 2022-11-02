@@ -40,7 +40,7 @@ async function createResponse(request) {
   console.log(myHost);
   console.log("Scope: " + self.registration.scope);
   console.log("Request: " + request.url);
-  if (request.url.startsWith(self.registration.scope + "/pseudo/")) {
+  if (request.url.startsWith(self.registration.scope + "pseudo/")) {
     let i = 0;
     const underlyingSource = {
       start: function (controller) {
