@@ -11,15 +11,23 @@ function project_file(filename) {
 }
 
 function selfActivate(evt) {
-  console.log("selfActivate");
-  console.log(evt);
-  self.registration.addEventListener("updatefound", registrationUpdateFound);
+  try {
+    console.log("selfActivate");
+    console.log(evt);
+    self.registration.addEventListener("updatefound", registrationUpdateFound);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 function selfFetch(evt) {
-  console.log("selfFetch");
-  console.log(evt);
-  evt.respondWith(createResponse(evt.request));
+  try {
+    console.log("selfFetch");
+    console.log(evt);
+    evt.respondWith(createResponse(evt.request));
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 async function createResponse(request) {
@@ -73,60 +81,92 @@ async function createResponse(request) {
 }
 
 function selfInstall(evt) {
-  console.log("selfInstall");
-  console.log(evt);
-  self.clients.claim();
-  self.skipWaiting()
-  /*
-  function addCaches(cache) {
-    console.log("sw.js: Start Adding Caches");
-    cache.addAll([
-      project_file(""),
-      project_file("index.html"),
-      project_file("index.js"),
-      project_file("worker_api.js"),
-      project_file("style.css"),
-    ])
-    console.log("sw.js: End Adding Caches");
+  try {
+    console.log("selfInstall");
+    console.log(evt);
+    self.clients.claim();
+    self.skipWaiting()
+    /*
+    function addCaches(cache) {
+      console.log("sw.js: Start Adding Caches");
+      cache.addAll([
+        project_file(""),
+        project_file("index.html"),
+        project_file("index.js"),
+        project_file("worker_api.js"),
+        project_file("style.css"),
+      ])
+      console.log("sw.js: End Adding Caches");
+    }
+    evt.waitUntil(caches.open("store").then(addCaches));
+    */
+    self.registration.addEventListener("updatefound", registrationUpdateFound);
+  } catch (e) {
+    console.error(e);
   }
-  evt.waitUntil(caches.open("store").then(addCaches));
-  */
-  self.registration.addEventListener("updatefound", registrationUpdateFound);
 }
 
 function selfMessage(evt) {
-  console.log("selfMessage");
-  console.log(evt);
+  try {
+    console.log("selfMessage");
+    console.log(evt);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 function selfNotificationClick(evt) {
-  console.log("selfNotificationClick");
-  console.log(evt);
+  try {
+    console.log("selfNotificationClick");
+    console.log(evt);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 function selfNotificationClose(evt) {
-  console.log("selfNotificationClose");
-  console.log(evt);
+  try {
+    console.log("selfNotificationClose");
+    console.log(evt);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 function selfPeriodicSync(evt) {
-  console.log("selfPeriodicSync");
-  console.log(evt);
+  try {
+    console.log("selfPeriodicSync");
+    console.log(evt);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 function selfPush(evt) {
-  console.log("selfPush");
-  console.log(evt);
+  try {
+    console.log("selfPush");
+    console.log(evt);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 function selfPushSubscriptionChange(evt) {
-  console.log("selfPushSubscriptionChange");
-  console.log(evt);
+  try {
+    console.log("selfPushSubscriptionChange");
+    console.log(evt);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 function selfSync(evt) {
-  console.log("selfSync");
-  console.log(evt);
+  try {
+    console.log("selfSync");
+    console.log(evt);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 self.addEventListener("activate", selfActivate);
@@ -141,10 +181,18 @@ self.addEventListener("pushsubscriptionchange", selfPushSubscriptionChange);
 self.addEventListener("sync", selfSync);
 
 function registrationUpdateFound() {
-  console.log(self.registration.waiting);
-  console.log(self.registration.active);
-  console.log(self.registration.installing);
-  console.log(self.registration.updateViaCache);
+  try {
+    console.log("self.registration.waiting");
+    console.log(self.registration.waiting);
+    console.log("self.registration.active");
+    console.log(self.registration.active);
+    console.log("self.registration.installing");
+    console.log(self.registration.installing);
+    console.log("self.registration.updateViaCache");
+    console.log(self.registration.updateViaCache);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 /*
