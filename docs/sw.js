@@ -27,6 +27,9 @@ async function createResponse(request) {
   const myHost = allClients[0];
   myHost.postMessage("Scope: " + self.registration.scope);
   myHost.postMessage("Request: " + request.url);
+  console.log(myHost);
+  console.log("Scope: " + self.registration.scope);
+  console.log("Request: " + request.url);
   if (request.url.startsWith(self.registration.scope + "/pseudo/")) {
     let i = 0;
     const underlyingSource = {
