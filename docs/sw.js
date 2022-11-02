@@ -41,13 +41,16 @@ async function createResponse(request) {
   console.log("Scope: " + self.registration.scope);
   console.log("Request: " + request.url);
   if (request.url.startsWith(self.registration.scope + "pseudo/")) {
-    let i = 0;
+    let i = {
+      count: 0,
+    };
     const underlyingSource = {
       start: function (controller) {
         console.log("start");
       },
       pull: function (controller) {
-        if (i >= 10) {
+        myHost.postMessage("Count: " + i.count);
+        if (i.count >= 10) {
           return controller.close();
         }
         console.log("pull");
@@ -62,7 +65,7 @@ async function createResponse(request) {
             resolve();
           }, 500);
         });
-        ++i;
+        ++(i.count);
       },
       cancel: function (controller) {
         console.log("cancel");
