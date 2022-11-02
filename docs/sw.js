@@ -68,7 +68,7 @@ async function createResponse(request) {
       headers: {},
     });
   } else {
-    return fetch(request);
+    return await fetch(request);
   }
 }
 
