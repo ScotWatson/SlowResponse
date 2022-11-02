@@ -59,13 +59,13 @@ async function createResponse(request) {
         newData[1] = Math.random() * 255;
         newData[2] = Math.random() * 255;
         newData[3] = Math.random() * 255;
+        ++(i.count);
         return new Promise(function (resolve, reject) {
           setTimeout(function () {
             controller.enqueue(newData);
             resolve();
           }, 500);
         });
-        ++(i.count);
       },
       cancel: function (controller) {
         console.log("cancel");
