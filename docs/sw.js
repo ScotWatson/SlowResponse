@@ -23,12 +23,18 @@ function selfFetch(evt) {
 }
 
 function createResponse(request) {
+  console.log("Scope: " + self.registration.scope);
+  console.log("Request: " + request.url);
   if (request.url.startsWith(self.registration.scope + "/pseudo/")) {
+    let i = 0;
     const underlyingSource = {
       start: function (controller) {
         console.log("start");
       },
       pull: function (controller) {
+        if (i >= 10) {
+          return controller.close();
+        }
         console.log("pull");
         const newData = new Uint8Array(4);
         newData[0] = Math.random() * 255;
@@ -41,6 +47,7 @@ function createResponse(request) {
             resolve();
           }, 500);
         });
+        ++i;
       },
       cancel: function (controller) {
         console.log("cancel");
