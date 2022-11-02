@@ -40,7 +40,7 @@ const startServiceWorker = (async function () {
 
 async function start( [ evtWindow, ErrorLog, myServiceWorkerRegistration ] ) {
   try {
-    window.addEventListener("message", function (evt) {
+    navigator.serviceWorker.addEventListener("message", function (evt) {
       console.log("sw.js: " + evt.data);
     });
     const btnGetData = document.createElement("button");
