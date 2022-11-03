@@ -26,7 +26,8 @@ const startServiceWorker = (async function () {
   if (!("serviceWorker" in navigator)) {
     throw new Error("Service Workers are not supported");
   }
-  return navigator.serviceWorker.register("sw.js");
+  await navigator.serviceWorker.register("sw.js");
+  return await navigator.serviceWorker.ready();
 })();
 
 (async function () {
